@@ -4,7 +4,7 @@
 
 ## Overview
 > **Live server url** 
- *`https://manual-footies.vercel.app/`*
+ *`https://manual-footies-server.vercel.app/`*
 
 The Manual Footies Backend is a robust and scalable system developed using Node.js, Express, MongoDB, and Mongoose. It is designed to handle core functionalities such as user authentication, product management, order processing, and more. This documentation provides a comprehensive guide to understanding, installing, and using the backend services of this application.
 
