@@ -17,6 +17,7 @@ const transporter = nodemailer.createTransport({
 // Register User
 exports.registerUser = async (req, res) => {
     const { email, username, password } = req.body;
+
       // Email validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -26,6 +27,11 @@ exports.registerUser = async (req, res) => {
     try { 
         let user = await User.findOne({ email });
         if (user) return res.status(400).json({ msg: 'User already exists' });
+
+            // Check if the username already exists
+        user = await User.findOne({ username });
+        if (user) return res.status(400).json({ msg: 'Username already exists' });
+
 
         user = new User({ email, username, password });
 
