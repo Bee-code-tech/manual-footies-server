@@ -128,39 +128,53 @@ The project follows a modular structure to keep the code organized and maintaina
 - **utils/**: Utility functions and helper methods.
 - **server.js**: Entry point of the application.
 
-## API Documentation
 
+
+
+## API Documentation
 The backend provides RESTful APIs for interacting with the system. Below is a summary of the available endpoints:
+
 
 ### Authentication
 
-- `POST /api/v1/auth/register`: Register a new user and send OTP to email.
-- `POST /api/v1/auth/verify`: Verify OTP during registration.
-- `POST /api/v1/auth/login`: Authenticate a user and return a JWT.
-- `POST /api/v1/auth/check-email`: Checks if email exists in the database.
+| **Endpoint**                | **Method** | **Description**                             | **Request**                                                                                                           | **Response (Success)**                                                                                                 | **Response (Error)**                                                                                                   |
+|-----------------------------|------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `/api/v1/auth/register`      | `POST`     | Registers a new user and sends an OTP.      | `{ "email": "user@example.com", "username": "john_doe", "password": "password123" }`                                   | `{ "msg": "OTP sent to your email" }`                                                                                  | `{ "msg": "User already exists" }`                                                                                     |
+| `/api/v1/auth/verify`        | `POST`     | Verifies the OTP sent to the user's email.  | `{ "email": "user@example.com", "otp": "123456" }`                                                                     | `{ "msg": "Account verified successfully" }`                                                                           | `{ "msg": "Invalid or expired OTP" }`                                                                                  |
+| `/api/v1/auth/login`         | `POST`     | Authenticates a user and returns a JWT.     | `{ "email": "user@example.com", "password": "password123" }`                                                           | `{ "token": "jwt-token" }`                                                                                             | `{ "msg": "Invalid credentials" }`                                                                                     |
+| `/api/v1/auth/check-email`   | `POST`     | Checks if an email is registered.           | `{ "email": "user@example.com" }`                                                                                      | `{ "exists": true, "msg": "Email already exists" }`                                                                    | `{ "exists": false, "msg": "Email is available" }`                                                                     |
 
 ### Shop Management
 
-- `POST /api/v1/shops`: Create a new shop (Admin only).
-- `GET /api/v1/shops`: Retrieve a list of all shops.
-- `PUT /api/v1/shops/:id`: Update shop details (Admin only).
-- `DELETE /v1/api/shops/:id`: Delete a shop (Admin only).
+| **Endpoint**                | **Method** | **Description**                             | **Request**                                                                                                           | **Response (Success)**                                                                                                 | **Response (Error)**                                                                                                   |
+|-----------------------------|------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `/api/v1/shops`             | `POST`     | Creates a new shop (Admin only).            | `{ "name": "Shop Name", "description": "A brief description", "ownerId": "owner-id", "billboardImage": "url-to-image"}`| `{ "msg": "Shop created successfully", "shop": { "_id": "shop-id", "name": "Shop Name", ... } }`                       |                                                                                                                        |
+| `/api/v1/shops`             | `GET`      | Retrieves a list of all shops.              |                                                                                                                       | `[ { "_id": "shop-id", "name": "Shop Name", "description": "A brief description", "ownerId": "owner-id", ... } ]`     |                                                                                                                        |
+| `/api/v1/shops/:id`         | `PUT`      | Updates a shop's details (Admin only).      | `{ "name": "Updated Shop Name", "description": "Updated description", ... }`                                          | `{ "msg": "Shop updated successfully", "shop": { "_id": "shop-id", "name": "Updated Shop Name", ... } }`               |                                                                                                                        |
+| `/api/v1/shops/:id`         | `DELETE`   | Deletes a shop (Admin only).                |                                                                                                                       | `{ "msg": "Shop deleted successfully" }`                                                                               |                                                                                                                        |
 
 ### Product Management
 
-- `POST /api/v1/products`: Add a new product to a shop.
-- `GET /api/v1/products/:id`: Get details of a specific product.
-- `PUT /api/v1/products/:id`: Update a product's details.
-- `DELETE /api/v1/products/:id`: Remove a product from the shop.
+| **Endpoint**                | **Method** | **Description**                             | **Request**                                                                                                           | **Response (Success)**                                                                                                 | **Response (Error)**                                                                                                   |
+|-----------------------------|------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `/api/v1/products`          | `POST`     | Adds a new product to a shop.               | `{ "shopId": "shop-id", "name": "Product Name", "price": 100, "description": "Product description", ... }`            | `{ "msg": "Product added successfully", "product": { "_id": "product-id", "name": "Product Name", ... } }`             |                                                                                                                        |
+| `/api/v1/products/:id`      | `GET`      | Retrieves details of a specific product.    |                                                                                                                       | `{ "_id": "product-id", "name": "Product Name", "price": 100, "description": "Product description", ... }`            |                                                                                                                        |
+| `/api/v1/products/:id`      | `PUT`      | Updates a product's details.                | `{ "name": "Updated Product Name", "price": 120, "description": "Updated description", ... }`                         | `{ "msg": "Product updated successfully", "product": { "_id": "product-id", "name": "Updated Product Name", ... } }`  |                                                                                                                        |
+| `/api/v1/products/:id`      | `DELETE`   | Deletes a product from the shop.            |                                                                                                                       | `{ "msg": "Product deleted successfully" }`                                                                            |                                                                                                                        |
 
 ### Order Management
 
-- `POST /api/v1/orders`: Create a new order.
-- `GET /api/v1/orders`: Get all orders for a user.
-- `PUT /api/v1/orders/:id`: Update order status.
-- `DELETE /api/v1/orders/:id`: Cancel an order.
+| **Endpoint**                | **Method** | **Description**                             | **Request**                                                                                                           | **Response (Success)**                                                                                                 | **Response (Error)**                                                                                                   |
+|-----------------------------|------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `/api/v1/orders`            | `POST`     | Creates a new order.                        | `{ "userId": "user-id", "products": [{ "productId": "product-id", "quantity": 2 }], "totalPrice": 200 }`              | `{ "msg": "Order created successfully", "order": { "_id": "order-id", "userId": "user-id", ... } }`                    |                                                                                                                        |
+| `/api/v1/orders`            | `GET`      | Retrieves all orders for a user.            |                                                                                                                       | `[ { "_id": "order-id", "userId": "user-id", "products": [{ "productId": "product-id", "quantity": 2 }], ... } ]`     |                                                                                                                        |
+| `/api/v1/orders/:id`        | `PUT`      | Updates an order's status.                  | `{ "status": "Shipped" }`                                                                                            | `{ "msg": "Order status updated successfully", "order": { "_id": "order-id", "status": "Shipped", ... } }`            |                                                                                                                        |
+| `/api/v1/orders/:id`        | `DELETE`   | Cancels an order.                           |                                                                                                                       | `{ "msg": "Order canceled successfully" }`                                                                             |                                                                                                                        |
 
-**Note**: Detailed API documentation with request and response examples should be created separately for reference.
+
+
+
+
 
 ## Security
 
