@@ -27,12 +27,12 @@ const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
-app.use('/api/auth', authRoutes);
-app.use('/api/shops', shopRoutes);
-app.use('/api/shops/:shopId/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/products/:productId/reviews', reviewRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/shops', shopRoutes);
+app.use('/api/v1/shops/:shopId/products', productRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/products/:productId/reviews', reviewRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)

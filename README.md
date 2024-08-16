@@ -134,30 +134,31 @@ The backend provides RESTful APIs for interacting with the system. Below is a su
 
 ### Authentication
 
-- `POST /api/auth/register`: Register a new user and send OTP to email.
-- `POST /api/auth/verify`: Verify OTP during registration.
-- `POST /api/auth/login`: Authenticate a user and return a JWT.
+- `POST /api/v1/auth/register`: Register a new user and send OTP to email.
+- `POST /api/v1/auth/verify`: Verify OTP during registration.
+- `POST /api/v1/auth/login`: Authenticate a user and return a JWT.
+- `POST /api/v1/auth/check-email`: Checks if email exists in the database.
 
 ### Shop Management
 
-- `POST /api/shops`: Create a new shop (Admin only).
-- `GET /api/shops`: Retrieve a list of all shops.
-- `PUT /api/shops/:id`: Update shop details (Admin only).
-- `DELETE /api/shops/:id`: Delete a shop (Admin only).
+- `POST /api/v1/shops`: Create a new shop (Admin only).
+- `GET /api/v1/shops`: Retrieve a list of all shops.
+- `PUT /api/v1/shops/:id`: Update shop details (Admin only).
+- `DELETE /v1/api/shops/:id`: Delete a shop (Admin only).
 
 ### Product Management
 
-- `POST /api/products`: Add a new product to a shop.
-- `GET /api/products/:id`: Get details of a specific product.
-- `PUT /api/products/:id`: Update a product's details.
-- `DELETE /api/products/:id`: Remove a product from the shop.
+- `POST /api/v1/products`: Add a new product to a shop.
+- `GET /api/v1/products/:id`: Get details of a specific product.
+- `PUT /api/v1/products/:id`: Update a product's details.
+- `DELETE /api/v1/products/:id`: Remove a product from the shop.
 
 ### Order Management
 
-- `POST /api/orders`: Create a new order.
-- `GET /api/orders`: Get all orders for a user.
-- `PUT /api/orders/:id`: Update order status.
-- `DELETE /api/orders/:id`: Cancel an order.
+- `POST /api/v1/orders`: Create a new order.
+- `GET /api/v1/orders`: Get all orders for a user.
+- `PUT /api/v1/orders/:id`: Update order status.
+- `DELETE /api/v1/orders/:id`: Cancel an order.
 
 **Note**: Detailed API documentation with request and response examples should be created separately for reference.
 
