@@ -119,3 +119,21 @@ exports.loginUser = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
+// Check if Email Exists
+exports.checkEmailExists = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        let user = await User.findOne({ email });
+
+        if (user) {
+            return res.status(200).json({ exists: true, msg: 'Email already exists' });
+        } else {
+            return res.status(200).json({ exists: false, msg: 'Email is available' });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
