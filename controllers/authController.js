@@ -17,6 +17,11 @@ const transporter = nodemailer.createTransport({
 // Register User
 exports.registerUser = async (req, res) => {
     const { email, username, password } = req.body;
+      // Email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ msg: 'Invalid email address' });
+    }
 
     try { 
         let user = await User.findOne({ email });
