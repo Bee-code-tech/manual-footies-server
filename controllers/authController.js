@@ -116,13 +116,18 @@ exports.loginUser = async (req, res) => {
             }
         };
 
+        // Sign the JWT and send the response
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ token });
+                
+                user = user.toObject(); 
+                delete user.password;   // Remove the password field
+
+                res.json({ token, user });
             }
         );
     } catch (err) {
@@ -130,6 +135,7 @@ exports.loginUser = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
 
 // Check if Email Exists
 exports.checkEmailExists = async (req, res) => {
